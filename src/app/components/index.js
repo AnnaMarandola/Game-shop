@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const Navbar = ({ filter, setFiltering  }) => {
+export const Navbar = ({ filter, setFiltering, count }) => {
   return (
     <nav className="navbar orange navbar-expand-lg navbar-light bg-light fixed-top">
     <a href="" className="navbar-brand crimson">
@@ -26,6 +26,10 @@ export const Navbar = ({ filter, setFiltering  }) => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={(e) => {
+                  setFiltering(e.target.value.length > 0)
+                  filter(e.target.value)
+                  }}
                 />
             </form>
           </div>
@@ -33,7 +37,7 @@ export const Navbar = ({ filter, setFiltering  }) => {
              <a href="" className="">
                 <i class="fas fa-shopping-bag fa-2x grey"></i>
              </a>
-              {/* <span class="badge badge-pill badge-success">{items.length > 0 && items.length}</span> */}
+              <span class="badge badge-pill badge-success">{count}</span>
           </div>
         </div>
       </div>
@@ -42,47 +46,136 @@ export const Navbar = ({ filter, setFiltering  }) => {
 };
 
 export const Card = props => {
-  const { game } = props
+  const { item, addToCart, count } = props
   return (
     <div className="col-sm-4">
       <div className="card">
+              <h4>{item.title}</h4>
         <img
           width="170"
           height="170"
-          src={process.env.PUBLIC_URL + `/assets/${game.category}/${game.image}`}
-          alt={game.name}        />
+          src={process.env.PUBLIC_URL + `/assets/${item.category}/${item.image}`}
+          alt={item.name}        />
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6">
-              <h4>{game.title}</h4>
+              <p>{item.price}€ TTC</p>
             </div>
             <div className="col-sm-6">
-              <p>
-                 {game.price}€ TTC</p>
-              <button className="btn btn-warning btn-sm" >view product</button>
+              <button className="btn btn-warning btn-sm"data-toggle="modal" data-target={`#${item.ref}`} >view product</button>
             </div>
           </div>
         </div>
       </div>
-      {/* <Modal item={item} count={count}/> */}
+      <Modal item={item} addToCart={addToCart} count={count}/>
     </div>
   );
 };
 
 export const List = props => {
-  const { data, category } = props
-  const games = data[category]
+  const { data, category, addToCart, count } = props
 
   console.log('data', data)
-  console.log('cardGames', games)
   return (
     <div className="col-sm">
       <div className="row">
-      {games.map( game => <Card key={game.ref} game={game}/>)}
+      {data.map( item => <Card key={item.ref} item={item} addToCart={addToCart} count={count}/>)}
       </div>
     </div>
   )
 }
+
+export const Modal = ({ item, addToCart, count }) => {
+  const [qty, setQty] = useState(1)
+  return (
+    <div
+      class="modal fade "
+      id={item.ref}
+      data-backdrop="static"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">{item.name}</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div className="row">
+              <div className="col-sm-4">
+                <img
+                  width="170"
+                  height="170"
+                  src={
+                    process.env.PUBLIC_URL +
+                    `/assets/${item.category}/${item.image}`
+                  }
+                  alt="Citron"
+                />
+              </div>
+
+              <div className="col-sm">
+              <h3>{item.title}</h3>
+                <p class="lead">
+                  {item.description}
+                </p>
+                <p>A partir de {item.age}</p>
+                <p>Nombre de joueurs:</p>
+                  <h3 className="price">€{item.price}/{item.unit}</h3> <br />
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <button
+                    onClick={() => setQty(count > 1 ? count - 1 : 1)}
+                    type="button"
+                    className="btn btn-secondary">
+                    -
+                  </button>
+                    <span className="btn btn-light qty">{qty}</span>
+                  <button
+                    onClick={() => setQty(count + 1)}
+                    type="button"
+                    className="btn btn-secondary">
+                    +
+                  </button>
+                </div>
+                <br />
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal">
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              data-dismiss="modal"
+              onClick={()=> addToCart(count + 1)}
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const Footer = () => {
   return (
