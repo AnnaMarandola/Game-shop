@@ -1,14 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Navbar } from '../components'
-import { BrowserRouter  as Router, Route, Link } from 'react-router-dom'
+import { Navbar } from '../../components'
+import { BrowserRouter  as Router, Route } from 'react-router-dom'
 import { CartPage } from './Cart'
 import { Home } from './Home'
-import { list } from '../gamesData'
-import '../styles/App.css'
+import { list } from '../../gamesData'
+import '../../styles/App.css'
 
 
 
-const App = () => {
+const App = props => {
+  const { items, onAddToCart, onUpdateCart } = props
   const [category, setCategory] = useState(0)
   const [isFiltering, setFiltering] = useState(false)
   const [filtered, setFiltered] = useState(false)
@@ -26,6 +27,14 @@ const App = () => {
   useEffect(() => {
     setFiltering(isFiltering)
   })
+
+  const add = (item, qty) => {
+      onAddToCart()
+  }
+
+  const update = () => {
+
+  }
   return (
     <Fragment>
     <Router>
@@ -34,9 +43,9 @@ const App = () => {
       <Route  exact path="/" component={() => <Home 
                                                   category={category} 
                                                   loadCategory={loadCategory} 
-                                                  addToCart={setCount} 
+                                                  addToCart={add}
+                                                  onUpdateCart={update} 
                                                   list={list}
-                                                  count={count}
                                                   filtered={filtered}
                                                   isFiltering={isFiltering}/>
                                                   } />

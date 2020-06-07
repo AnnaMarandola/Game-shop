@@ -77,13 +77,13 @@ export const Card = props => {
 };
 
 export const List = props => {
-  const { data, category, addToCart, count } = props
+  const { data, addToCart, category, updateCart } = props
 
   console.log('data', data)
   return (
     <div className="col-sm">
       <div className="row">
-      {data.map( item => <Card key={item.ref} item={item} addToCart={addToCart} count={count}/>)}
+      {data.map( item => <Card key={item.ref} item={item} addToCart={addToCart} updateCart={updateCart} />)}
       </div>
     </div>
   )
@@ -141,14 +141,14 @@ export const Modal = ({ item, addToCart, count }) => {
                   aria-label="Basic example"
                 >
                   <button
-                    onClick={() => setQty(count > 1 ? count - 1 : 1)}
+                    onClick={() => setQty(qty > 1 ? qty - 1 : 1)}
                     type="button"
                     className="btn btn-secondary">
                     -
                   </button>
                     <span className="btn btn-light qty">{qty}</span>
                   <button
-                    onClick={() => setQty(count + 1)}
+                    onClick={() => setQty(qty + 1)}
                     type="button"
                     className="btn btn-secondary">
                     +
@@ -170,7 +170,7 @@ export const Modal = ({ item, addToCart, count }) => {
               type="button"
               class="btn btn-success"
               data-dismiss="modal"
-              onClick={()=> addToCart(count + 1)}
+              onClick={()=> addToCart(item, qty)}
             >
               Add to Cart
             </button>

@@ -1,17 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './app/views/App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { store } from './app/lib/store'
+import { addToCart } from './app/lib/actions'
+import { AppContainer } from './app/views/containers/index'
+
+console.log(store.getState())
+const unsubscribe = store.subscribe(() => console.log(store.getState()))
+// store.dispatch(addToCart({name: "Burger Quiz"}, 2))
+// store.dispatch(addToCart({name: "Dixit"}, 3))
+unsubscribe()
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
   document.getElementById('root')
-);
+)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
