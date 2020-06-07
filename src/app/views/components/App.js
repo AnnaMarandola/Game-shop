@@ -9,7 +9,7 @@ import '../../styles/App.css'
 
 
 const App = props => {
-  const { items, onAddToCart, onUpdateCart } = props
+  const { onUpdateCart } = props
   const [category, setCategory] = useState(0)
   const [isFiltering, setFiltering] = useState(false)
   const [filtered, setFiltered] = useState(false)
@@ -28,9 +28,7 @@ const App = props => {
     setFiltering(isFiltering)
   })
 
-  const add = (item, quantity) => {
-      onAddToCart(item, quantity )
-  }
+
 
   const update = () => {
       onUpdateCart()
@@ -43,7 +41,6 @@ const App = props => {
       <Route  exact path="/" component={() => <Home 
                                                   category={category} 
                                                   loadCategory={loadCategory} 
-                                                  addToCart={add}
                                                   onUpdateCart={update} 
                                                   list={list}
                                                   filtered={filtered}

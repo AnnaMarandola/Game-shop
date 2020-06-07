@@ -1,19 +1,21 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector} from 'react-redux'
 import "../../styles/App.css";
 
-const Row = () => {
+const Row = (props) => {
+ const { quantity, details } = props.item
     return (
       <tr>
         <td>
           <img
             width="70"
             height="70"
-            src={process.env.PUBLIC_URL + `/assets/0/les-cinq-rois.jpg`}
-            alt="citrons"
+            src={process.env.PUBLIC_URL + `/assets/${details.category}/${details.image}`}
+            alt={details.title}
           />
         </td>
-        <td>ref</td>
-        <td>€0.00</td>
+        <td>{details.ref}</td>
+        <td>{details.price}€</td>
         <td>
           <div className="btn-group" role="group" aria-label="Basic example">
             <button
@@ -21,7 +23,7 @@ const Row = () => {
               className="btn btn-secondary">
               -
             </button>
-            <span className="btn btn-light">1</span>
+            <span className="btn btn-light">{quantity}</span>
             <button
               type="button"
               className="btn btn-secondary">
@@ -29,7 +31,7 @@ const Row = () => {
             </button>
           </div>
         </td>
-        <td>€24.90</td>
+        <td>{(quantity * details.price).toFixed(2)}€</td>
         <td>
           <button
             type="button"
@@ -42,6 +44,10 @@ const Row = () => {
 }
 
 const Table = () => {
+  const items = useSelector(state => state.items)
+  useEffect(() => {
+    console.log(`Vous avez ${items.length} in your cart`)
+  })
     return (
       <table>
         <tr>
@@ -51,7 +57,9 @@ const Table = () => {
           <th width="150">Quantité</th>
           <th width="200">Total</th>
         </tr>
-        <Row />
+        { items.map(item => {
+          return(<Row item={item}/>)
+        })}
       </table>
     );
   }

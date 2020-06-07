@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from '../lib/actions'
 
 
-
-export const Navbar = ({ filter, setFiltering, count }) => {
+export const Navbar = ({ filter, setFiltering }) => {
+  const items = useSelector(state => state.items)
   return (
     <nav className="navbar orange navbar-expand-lg navbar-light bg-light fixed-top">
 
@@ -41,7 +43,7 @@ export const Navbar = ({ filter, setFiltering, count }) => {
             <Link to="/cart">
               <i class="fas fa-shopping-bag fa-2x grey"></i>
             </Link>
-              <span class="badge badge-pill badge-success">{count}</span>
+              <span class="badge badge-pill badge-success">{items.length > 0 && items.length}</span>
           </div>
         </div>
       </div>
@@ -50,7 +52,7 @@ export const Navbar = ({ filter, setFiltering, count }) => {
 };
 
 export const Card = props => {
-  const { item, addToCart, count } = props
+  const { item, count } = props
   return (
     <div className="col-sm-4">
       <div className="card">
@@ -77,7 +79,7 @@ export const Card = props => {
 };
 
 export const List = props => {
-  const { data, addToCart, category, updateCart } = props
+  const { data, addToCart, updateCart } = props
 
   console.log('data', data)
   return (
@@ -91,6 +93,11 @@ export const List = props => {
 
 export const Modal = ({ item, addToCart, count }) => {
   const [qty, setQty] = useState(1)
+  const dispatch = useDispatch()
+
+  const add = (item, quantity) => {
+    dispatch(addToCart(item, quantity))
+  }
   return (
     <div
       class="modal fade "
@@ -170,7 +177,7 @@ export const Modal = ({ item, addToCart, count }) => {
               type="button"
               class="btn btn-success"
               data-dismiss="modal"
-              onClick={()=> addToCart(item, qty)}
+              onClick={()=> add(item, qty)}
             >
               Add to Cart
             </button>
