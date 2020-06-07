@@ -28,12 +28,12 @@ const App = props => {
     setFiltering(isFiltering)
   })
 
-  const add = (item, qty) => {
-      onAddToCart()
+  const add = (item, quantity) => {
+      onAddToCart(item, quantity )
   }
 
   const update = () => {
-
+      onUpdateCart()
   }
   return (
     <Fragment>
