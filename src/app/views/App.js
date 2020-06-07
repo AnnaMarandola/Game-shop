@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Navbar } from '../components'
 import { BrowserRouter  as Router, Route, Link } from 'react-router-dom'
-import { Cart } from './Cart'
+import { CartPage } from './Cart'
 import { Home } from './Home'
 import { list } from '../gamesData'
 import '../styles/App.css'
@@ -40,7 +40,7 @@ const App = () => {
                                                   filtered={filtered}
                                                   isFiltering={isFiltering}/>
                                                   } />
-      <Route path="/cart" component={Cart} />
+      <Route path="/cart" component={CartPage} />
       </Router>
     </Fragment>
   );
