@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 export const Navbar = ({ filter, setFiltering, count }) => {
   return (
     <nav className="navbar orange navbar-expand-lg navbar-light bg-light fixed-top">
