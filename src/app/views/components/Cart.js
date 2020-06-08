@@ -66,11 +66,7 @@ const Row = (props) => {
     );
 }
 
-const Table = () => {
-  const items = useSelector(state => state.items)
-  useEffect(() => {
-    console.log(`Vous avez ${items.length} in your cart`)
-  })
+const Table = ({ items }) => {
     return (
       <table>
         <tr>
@@ -88,12 +84,27 @@ const Table = () => {
   }
 
 export const CartPage = () => {
-    return (
+  const items = useSelector(state => state.items)
+  const [subTotal, setSubTotal] = useState(0.00)
+  const [total, setTotal] = useState(0.00)
+  const shipping = 6.90
+
+  useEffect(() => {
+    let totals = items.map(item => {
+      return (item.quantity * item.details.price).toFixed(2)
+    })
+
+    setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0))
+    setTotal(subTotal + shipping)
+    // console.log(`Subtotal: ${sousTotal}`)
+    // console.log(`items in cart: ${items.lengh}`)
+  })
+  return (
       <Fragment>
         <div className="container">
         <div className="row">
           <div className="col-sm cart">
-              <Table />
+              <Table items={items}/>
           </div>
           <div className="col-sm-3 order-summary">
             <ul className="list-group">
@@ -102,11 +113,11 @@ export const CartPage = () => {
               <li className="list-group-item">
                 <ul className="list-group flex">
                   <li className="text-left">Sous-total</li>
-                  <li className="text-right">€0.00</li>
+                  <li className="text-right">{subTotal}€</li>
                 </ul>
                 <ul className="list-group flex">
                   <li className="text-left">Frais de livraison</li>
-                  <li className="text-right">€0.00</li>
+                  <li className="text-right">{shipping.toFixed(2)}€</li>
                 </ul>
                 <ul className="list-group flex">
                   <li className="coupon crimson">
@@ -118,7 +129,7 @@ export const CartPage = () => {
               <li className="list-group-item ">
                 <ul className="list-group flex">
                   <li className="text-left">Total</li>
-                  <li className="text-right">€0.00 TTC</li>
+                  <li className="text-right">{total.toFixed(2)}€ TTC</li>
                 </ul>
               </li>
             </ul>
