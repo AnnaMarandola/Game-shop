@@ -24,9 +24,9 @@ const uid = () => Math.random().toString(34).slice(2)
         }
     }
 
-    export function removeFromCart(item) {
+    export function removeFromCart(id) {
         return {
             type: actions.REMOVE_FROM_CART,
-            payload: item
+            payload: id
         }
     }

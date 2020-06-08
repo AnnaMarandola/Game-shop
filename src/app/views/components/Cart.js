@@ -1,15 +1,18 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import "../../styles/App.css";
-import { updateCart, addToCart } from '../../lib/actions';
+import { updateCart, removeFromCart } from '../../lib/actions';
 
 const Row = (props) => {
- const { quantity, details } = props.item
+ const { id, quantity, details } = props.item
  const item = details
  const [qty, setQty ] = useState(quantity)
  const dispatch = useDispatch()
  const update = (item, quantity) => {
    dispatch(updateCart(item, quantity))
+ }
+ const remove = id => {
+   dispatch(removeFromCart(id))
  }
     return (
       <tr>
@@ -54,7 +57,8 @@ const Row = (props) => {
         <td>
           <button
             type="button"
-            className="btn btn-danger remove">
+            className="btn btn-danger remove"
+            onClick={() => remove(id)}>
             X
           </button>
         </td>
