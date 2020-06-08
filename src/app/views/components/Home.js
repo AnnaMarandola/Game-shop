@@ -2,7 +2,7 @@ import React from 'react'
 import { List } from '../../components'
 
 const SideMenu = ({ loadCategory, category }) => {
-    const links = ["Jeux de cartes", "En famille ou entre amis", "Kids", "Escape Box"]
+    const links = ["Jeux de cartes", "Escape Box", "Kids", "En famille/Entre amis"]
   
     return (
       <div className="col-sm-2 sidebar">

@@ -1,32 +1,51 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import "../../styles/App.css";
+import { updateCart, addToCart } from '../../lib/actions';
 
 const Row = (props) => {
  const { quantity, details } = props.item
+ const item = details
+ const [qty, setQty ] = useState(quantity)
+ const dispatch = useDispatch()
+ const update = (item, quantity) => {
+   dispatch(updateCart(item, quantity))
+ }
     return (
       <tr>
         <td>
           <img
             width="70"
             height="70"
-            src={process.env.PUBLIC_URL + `/assets/${details.category}/${details.image}`}
+            src={process.env.PUBLIC_URL + `/assets/${item.category}/${item.image}`}
             alt={details.title}
           />
         </td>
-        <td>{details.ref}</td>
-        <td>{details.price}€</td>
+        <td>{item.ref}</td>
+        <td>{item.price}€</td>
         <td>
           <div className="btn-group" role="group" aria-label="Basic example">
             <button
               type="button"
-              className="btn btn-secondary">
+              className="btn btn-secondary"
+              onClick={() => { 
+                if (qty > 1) { 
+                  setQty(qty - 1)
+                  update(item, qty)
+                  }
+              }}
+              >
               -
             </button>
-            <span className="btn btn-light">{quantity}</span>
+            <span className="btn btn-light">{qty}</span>
             <button
               type="button"
-              className="btn btn-secondary">
+              className="btn btn-secondary"
+              onClick={() => {
+              setQty (qty +1)
+              update(item, qty)
+              }}
+              >
               +
             </button>
           </div>
