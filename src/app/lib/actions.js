@@ -17,10 +17,10 @@ const uid = () => Math.random().toString(34).slice(2)
         }
     }
 
-    export function updateCart(item, quantity) {
+    export function updateCart(id, quantity) {
         return {
             type: actions.UPDATE_CART,
-            payload: { item: item, quantity}
+            payload: { id: id, quantity: quantity}
         }
     }
 

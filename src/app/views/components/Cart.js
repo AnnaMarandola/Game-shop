@@ -8,8 +8,8 @@ const Row = (props) => {
  const item = details
  const [qty, setQty ] = useState(quantity)
  const dispatch = useDispatch()
- const update = (item, quantity) => {
-   dispatch(updateCart(item, quantity))
+ const update =  quantity => {
+   dispatch(updateCart(id, quantity))
  }
  const remove = id => {
    dispatch(removeFromCart(id))
@@ -34,7 +34,7 @@ const Row = (props) => {
               onClick={() => { 
                 if (qty > 1) { 
                   setQty(qty - 1)
-                  update(item, qty)
+                  update(qty)
                   }
               }}
               >
@@ -46,7 +46,7 @@ const Row = (props) => {
               className="btn btn-secondary"
               onClick={() => {
               setQty (qty +1)
-              update(item, qty)
+              update(qty)
               }}
               >
               +
@@ -91,14 +91,14 @@ export const CartPage = () => {
 
   useEffect(() => {
     let totals = items.map(item => {
-      return (item.quantity * item.details.price).toFixed(2)
+      return (item.quantity * item.details.price)
     })
 
     setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0))
     setTotal(subTotal + shipping)
     // console.log(`Subtotal: ${sousTotal}`)
     // console.log(`items in cart: ${items.lengh}`)
-  })
+  }, [items, subTotal, total])
   return (
       <Fragment>
         <div className="container">
@@ -113,7 +113,7 @@ export const CartPage = () => {
               <li className="list-group-item">
                 <ul className="list-group flex">
                   <li className="text-left">Sous-total</li>
-                  <li className="text-right">{subTotal}€</li>
+                  <li className="text-right">{subTotal.toFixed(2)}€</li>
                 </ul>
                 <ul className="list-group flex">
                   <li className="text-left">Frais de livraison</li>
@@ -129,7 +129,7 @@ export const CartPage = () => {
               <li className="list-group-item ">
                 <ul className="list-group flex">
                   <li className="text-left">Total</li>
-                  <li className="text-right">{total.toFixed(2)}€ TTC</li>
+                  <li className="text-right">{subTotal == 0.00 ? "0.00" : total.toFixed(2)}€ TTC</li>
                 </ul>
               </li>
             </ul>
