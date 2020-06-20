@@ -8,12 +8,22 @@ const Row = (props) => {
  const item = details
  const [qty, setQty ] = useState(quantity)
  const dispatch = useDispatch()
- const update =  quantity => {
-   dispatch(updateCart(id, quantity))
+ const update = (action) => {
+  if (action === 'increment') {
+    setQty( qty + 1)
+  }
+  if (action === 'decrement') {
+    setQty( qty - 1)
+  }
+  dispatch(updateCart(id, qty))
  }
  const remove = id => {
    dispatch(removeFromCart(id))
  }
+ useEffect(() => {
+   dispatch(updateCart(id, qty))
+ }, [qty])
+
     return (
       <tr>
         <td>
@@ -33,8 +43,7 @@ const Row = (props) => {
               className="btn btn-secondary"
               onClick={() => { 
                 if (qty > 1) { 
-                  setQty(qty - 1)
-                  update(qty)
+                  update('decrement')
                   }
               }}
               >
@@ -45,8 +54,7 @@ const Row = (props) => {
               type="button"
               className="btn btn-secondary"
               onClick={() => {
-              setQty (qty +1)
-              update(qty)
+              update('increment')
               }}
               >
               +
