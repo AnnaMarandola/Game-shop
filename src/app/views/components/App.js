@@ -4,6 +4,7 @@ import { BrowserRouter  as Router, Route } from 'react-router-dom'
 import { CartPage } from './Cart'
 import { Home } from './Home'
 import { list } from '../../gamesData'
+import { Checkout } from './Checkout'
 import '../../styles/App.css'
 
 
@@ -42,6 +43,7 @@ const App = props => {
                                                   isFiltering={isFiltering}/>
                                                   } />
       <Route path="/cart" component={CartPage} />
+      <Route path="/checkout" component={Checkout} />
       </Router>
     </Fragment>
   );

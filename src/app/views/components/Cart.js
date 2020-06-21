@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import "../../styles/App.css";
 import { updateCart, removeFromCart } from '../../lib/actions';
+import { Link } from "react-router-dom";
 
 const Row = (props) => {
  const { id, quantity, details } = props.item
@@ -141,15 +142,9 @@ export const CartPage = () => {
                 </ul>
               </li>
             </ul>
-            <button
-              type="button"
-              className="btn btn-light btn-lg btn-block checkout bg-crimson"
-              disabled="true"
-            >
-              <a href="checkout" className="white">
+              <Link to="checkout" className={`white btn btn-light btn-lg btn-block checkout ${!items.length && 'disabled'} bg-crimson`}>
                 Checkout
-              </a>
-            </button>
+              </Link>
           </div>
         </div>
         </div>
