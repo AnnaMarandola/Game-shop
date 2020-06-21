@@ -9,7 +9,7 @@ import '../../styles/App.css'
 
 
 const App = props => {
-  const { onUpdateCart } = props
+  const { items, saveLocalStorage } = props
   const [category, setCategory] = useState(0)
   const [isFiltering, setFiltering] = useState(false)
   const [filtered, setFiltered] = useState(false)
@@ -25,14 +25,10 @@ const App = props => {
     setFiltered(results)
   }
   useEffect(() => {
-    setFiltering(isFiltering)
-  })
+    saveLocalStorage(items)
+  },  [items])
 
 
-
-  const update = () => {
-      onUpdateCart()
-  }
   return (
     <Fragment>
     <Router>
@@ -41,7 +37,6 @@ const App = props => {
       <Route  exact path="/" component={() => <Home 
                                                   category={category} 
                                                   loadCategory={loadCategory} 
-                                                  onUpdateCart={update} 
                                                   list={list}
                                                   filtered={filtered}
                                                   isFiltering={isFiltering}/>
