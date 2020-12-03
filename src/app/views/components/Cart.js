@@ -72,6 +72,7 @@ const Row = (props) => {
           </button>
         </td>
       </tr>
+
     );
 }
 
@@ -80,7 +81,7 @@ const Table = ({ items }) => {
       <table>
         <tr>
           <th width="200">Produit</th>
-          <th width="80">Reference</th>
+          <th width="80">Ref</th>
           <th width="150">Prix</th>
           <th width="150">Quantité</th>
           <th width="200">Total</th>
@@ -105,12 +106,11 @@ export const CartPage = () => {
 
     setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0))
     setTotal(subTotal + shipping)
-    // console.log(`Subtotal: ${sousTotal}`)
-    // console.log(`items in cart: ${items.lengh}`)
   }, [items, subTotal, total])
   return (
       <Fragment>
         <div className="container">
+        <h1 className="cart-title">Ma commande</h1>
         <div className="row">
           <div className="col-sm cart">
               <Table items={items}/>
@@ -143,7 +143,7 @@ export const CartPage = () => {
               </li>
             </ul>
               <Link to="checkout" className={`white btn btn-light btn-lg btn-block checkout ${!items.length && 'disabled'} bg-crimson`}>
-                Checkout
+                Valider
               </Link>
           </div>
         </div>

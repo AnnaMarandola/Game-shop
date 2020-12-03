@@ -1,13 +1,22 @@
-body {
-  margin-top : 120px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Love+Ya+Like+A+Sister&family=Luckiest+Guy&family=Megrim&display=swap');
+
+
 .container {
   margin-bottom: 100px;
+  /* background-color: teal; */
+  width: 100%;
 }
 
+
+
 .card {
+  margin-top: 2rem;
   margin-bottom: 40px;
   position: relative;
+}
+
+.card-title {
+  margin: 1rem;
 }
 
 .card img {
@@ -23,6 +32,10 @@ body {
 .navbar-brand:hover {
    color: brown;
 }
+
+.navbar-toggler {
+  margin-left: 85%;
+}
 .login {
   display: inline-block;
   margin-top: 5px;
@@ -33,15 +46,46 @@ body {
   background: #ffc107!important;
 }
 
+/* navbar */
+.logo-home {
+  width: 15%;
+}
+
+.contact-link{
+  font-family: 'Megrim', cursive;
+  font-weight: 700;
+  color: #272727;
+  margin-right: 8rem;
+}
+
+
+/* sidemenu */
+.category {
+  text-align: center;
+}
+
+.fas {
+  color: #272727;
+}
+
 /* cart */
+.cart-title {
+  /* font-family: 'Megrim', cursive; */
+  font-weight: 700;
+  color: #272727;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .cart {
-  margin: 0 35px;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: space-evenly;
 }
 table {
-  width: 100%;  
+  width: 90%;  
 }
 .cell {
  text-align: center;
@@ -64,7 +108,7 @@ table {
 }
 
 .qty {
-  width: 40px;
+  width: 30px;
   padding: 5px 0;
 }
 .white, .white:hover {
@@ -76,6 +120,12 @@ table {
   list-style-type: none;
   margin: 0;
   padding: 0; 
+
+}
+
+.sidebar {
+  margin-right: 4rem;
+  display: flex;
 }
 
 footer {
@@ -86,6 +136,7 @@ footer {
   line-height: 60px;
   background-color: #f5f5f5;
 }
+
 /* shopping cart */
 .shopping-cart table {
   width: 100%;
@@ -177,9 +228,6 @@ footer {
   border: 1px solid crimson;
 }
 @media screen and (max-width: 640px) {
-  body {
-      margin-top : 360px;
-  }
   .cart p {
       margin-top: 15px;
   } 

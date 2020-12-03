@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Ranchers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Love+Ya+Like+A+Sister&family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Love+Ya+Like+A+Sister&family=Luckiest+Guy&family=Megrim&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  height: max-content;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  background-color: #272727;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  margin-left: 8rem;
+
+}
+
+.dice {
+  width: 50%;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.header-title {
+  color: whitesmoke;
+  font-family: 'Megrim', cursive;
+  font-weight: 700;
+}
+
+.header-subtitle {
+  color: whitesmoke;
+}
+
+
+.carousel {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.news-title {
+  color: whitesmoke;
+  font-family: 'Megrim', cursive;
+  text-align: start;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  margin-left: 5%;
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+      flex-direction: column;
+  }
+  .carousel {
+    width: 100%;
+    margin: 0;
+  }
+
+  .header-content {
+    margin-left: 0;
+  }
+}
+  
+
+
+  
+  
